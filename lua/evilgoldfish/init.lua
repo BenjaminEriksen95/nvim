@@ -1,3 +1,3 @@
 require("evilgoldfish.remap")
-require("evilgoldfish.packer")
 require("evilgoldfish.set")
+require("evilgoldfish.lazy_init")
