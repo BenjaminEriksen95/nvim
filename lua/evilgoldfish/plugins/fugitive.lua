@@ -15,6 +15,15 @@ return {
             end
         end, {noremap = true, silent = true})
 
+  
+
+
+
+        vim.keymap.set("n", "<leader>gA", function() 
+            
+            vim.cmd('Git add -A')
+            print("Git add -A")
+            end, { noremap = true, silent = true })
     end
 
 }
