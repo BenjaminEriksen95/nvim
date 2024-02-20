@@ -7,7 +7,7 @@ return {
         "williamboman/mason.nvim",
         "williamboman/mason.lspconfig.nvim",
 
-        -- LSP Support 
+        -- LSP Support
         "neovim/nvim-lspconfig",
 
         -- Autocompletion
