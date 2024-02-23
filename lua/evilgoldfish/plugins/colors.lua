@@ -1,17 +1,16 @@
 function ColorMyVim(color)
     color = color or "rose-pine"
     vim.cmd("colorscheme " .. color)
-    
+
     vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
     vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
 end
 
 
-
 return {
     {
     "folke/tokyonight.nvim",
-    config = function() 
+    config = function()
         require("tokyonight").setup({
             style = "storm",
             transparent = true,
@@ -23,7 +22,7 @@ return {
                 sidebars = "dark",
                 floats = "dark",
             },
-        })    
+        })
     end
     },
 
@@ -32,7 +31,7 @@ return {
         name = "rose-pine",
         config = function()
             require('rose-pine').setup({
-                disable_background = true,
+                transparent = true,
             })
 
             ColorMyVim()
