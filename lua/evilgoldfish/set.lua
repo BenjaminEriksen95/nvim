@@ -1,3 +1,4 @@
+vim.opt.cursorline = true
 
 vim.opt.nu = true
 
