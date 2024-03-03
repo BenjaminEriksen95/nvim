@@ -2,7 +2,7 @@ require("evilgoldfish.remap")
 require("evilgoldfish.set")
 require("evilgoldfish.lazy_init")
 
-
+print("TODO")
 
 local my_group = vim.api.nvim_create_augroup("evilgoldfish", {} )
 
