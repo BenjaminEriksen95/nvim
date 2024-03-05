@@ -39,7 +39,7 @@ return {
 
         vim.keymap.set('n', '<leader>sF', builtin.find_files, { desc = '[S]earch All [F]iles' })
 
-        vim.keymap.set('n', '<leader>st', builtin.builtin, { desc = '[S]earch [T]elescope' })
+        vim.keymap.set('n', '<leader>ht', builtin.builtin, { desc = '[H]elp [T]elescope' })
 
         vim.keymap.set('n', '<leader>sg', builtin.git_files, { desc = '[S]earch [G]it' })
 
