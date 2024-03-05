@@ -2,7 +2,7 @@ return {
     'tpope/vim-fugitive',
 
     config = function()
-        vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+        vim.keymap.set('n', '<leader>gs', vim.cmd.Git, { desc = '[G]it [S]tatus'})
         -- TODO
         -- Autogroup commands
 
@@ -35,12 +35,12 @@ return {
             else
                 print('Commit aborted: No commit message provided')
             end
-        end, { noremap = true, silent = true })
+        end, { noremap = true, silent = true, desc = 'git commit -m' })
 
         vim.keymap.set('n', '<leader>gA', function()
             vim.cmd('Git add -A')
             print('Git add -A')
-        end, { noremap = true, silent = false })
+        end, { noremap = true, silent = false, desc = 'git add -A' })
     end
 
 }
