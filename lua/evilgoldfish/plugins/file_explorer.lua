@@ -13,6 +13,10 @@ local function list_files(directory)
     return filenames
 end
 
+local function set_breadcrumb(buffer, breadcrumb)
+    api.nvim_buf_clear_namespace(buffer, -1, 0, -1)
+    api.nvim_buf_set_virtual_text(buffer, -1, 0, {{breadcrumb, 'Comment'}}, {})
+end
 
 
 local function open_directory(directory)
@@ -35,11 +39,13 @@ local function open_directory(directory)
 
     -- Create a new buffer, false for not listed, true for scratch buffer
     local file_buffer = api.nvim_create_buf(false, true)
-    -- Inject files into buffer
-    api.nvim_buf_set_lines(file_buffer, 0, 1, false, files)
 
+    -- Inject files into buffer
+    api.nvim_buf_set_lines(file_buffer, 1, -1, false, files)
+    set_breadcrumb(file_buffer, directory)
 
     local window = api.nvim_open_win(file_buffer, true, {
+
         relative = 'editor',
         width = math.floor(vim.o.columns * 0.7),
         height = math.floor(vim.o.lines * 0.7),
@@ -47,7 +53,6 @@ local function open_directory(directory)
         row = math.floor(vim.o.lines * 0.15),
         border = 'single'
     })
-
     -- Enter goes to selected file
     api.nvim_buf_set_keymap(file_buffer, 'n', '<CR>', '',
         {
