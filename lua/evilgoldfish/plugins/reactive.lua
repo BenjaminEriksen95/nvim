@@ -1,3 +1,4 @@
+-- Makes it easier to distinguish between modes
 return {
     'rasulomaroff/reactive.nvim',
 
