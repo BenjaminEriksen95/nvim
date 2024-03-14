@@ -22,3 +22,7 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = '[F]ormat'})
 
+-- Helpers for Danish keyboard
+vim.keymap.set({"n","v","o"}, "ø", "$", {desc = 'End of Line'})
+vim.keymap.set({"n","v","o"}, "æ", "_", {desc = 'Start of Line(non-blank)'})
+
