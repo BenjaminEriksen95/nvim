@@ -8,6 +8,7 @@ return {
 
         local custom_fugitive = vim.api.nvim_create_augroup('custom_fugitive', {})
 
+        -- Commands for the :G buffer
         vim.api.nvim_create_autocmd('BufWinEnter', {
             group = custom_fugitive,
             pattern = '*',
@@ -20,11 +21,18 @@ return {
                 vim.keymap.set('n', '<leader>P', function()
                     vim.cmd('Git push')
                 end, { buffer = current_buffer, remap = false, desc = 'git push' }
-)
+                )
 
                 vim.keymap.set('n', '<leader>p', function()
                     vim.cmd('Git pull --rebase')
-                end, { buffer = current_buffer, remap = false, desc = 'git pull -rebase'})
+                end, { buffer = current_buffer, remap = false, desc = 'git pull -rebase'}
+                )
+
+                vim.keymap.set('n', '<leader>c', function()
+                    vim.cmd('Gllog')
+                end, { buffer = current_buffer, remap = false, desc = 'git commit log'})
+
+
             end
         })
 
@@ -39,7 +47,8 @@ return {
 
         vim.keymap.set('n', '<leader>gA', function()
             vim.cmd('Git add -A')
-            print('Git add -A')
+
+            vim.notify("add -A", "info", { timeout = 1000, title = 'Git' })
         end, { noremap = true, silent = false, desc = 'git add -A' })
     end
 
