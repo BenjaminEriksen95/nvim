@@ -36,20 +36,24 @@ return {
             end
         })
 
-        vim.keymap.set('n', '<leader>gc', function()
-            local msg = vim.fn.input('Commit message: ')
-            if msg ~= '' then
-                vim.cmd.Git('commit -m ' .. vim.fn.shellescape(msg))
-            else
-                print('Commit aborted: No commit message provided')
-            end
-        end, { noremap = true, silent = true, desc = 'git commit -m' })
+--        vim.keymap.set('n', '<leader>gc', function()
+--            local msg = vim.fn.input('Commit message: ')
+--            if msg ~= '' then
+--                vim.cmd.Git('commit -m ' .. vim.fn.shellescape(msg))
+--            else
+--                print('Commit aborted: No commit message provided')
+--            end
+--        end, { noremap = true, silent = true, desc = 'git commit -m' })
 
-        vim.keymap.set('n', '<leader>gA', function()
+        vim.keymap.set('n', '<leader>Gc', function ()
+            vim.cmd('Git commit -v')
+        end, { desc = 'Git commit -v'})
+
+        vim.keymap.set('n', '<leader>Ga', function()
             vim.cmd('Git add -A')
 
             vim.notify("add -A", "info", { timeout = 1000, title = 'Git' })
-        end, { noremap = true, silent = false, desc = 'git add -A' })
+        end, { noremap = true, silent = false, desc = 'Git add -A' })
     end
 
 }
