@@ -26,18 +26,11 @@ Basically code editor with a bunch of nice features.
 - *Debug code*
 
 # How vim bindings could change how you interface with code.
-- Increase skill cap: HIGH -> Having Jedi like editing skills is FUN!
-- Reuseability: High, works for any language
-- Get closer to the tools that run under the hood
-- Configurability, easy to extend with lua plugins
-
-Cons:
-- Learning curve: HARD - mitigate by starting with plugin
-- Setup and maintenaince - custom stuff breaks (not applicable for bindings only)
+1. Increase skill cap. Vim bindings are made for navigating and editing code faster.
+2. Have more fun! Tinkering a macro or regex search replace can give you that Jedi mind trick experience.
 
 # Vim bindings
-All about writing, reading and editing code.
-Default typing has 1 mode: insertion(writing).
+Default typing has 1 mode: insertion(writing), and uses arrows/mouse for navigation.
 Vim uses 4 modes:
 - Normal (navigation)
     1. &#8592; &#8593; &#8594; &#8595; `h` `j` `k` `l`
