@@ -1,5 +1,5 @@
 function ColorMyVim(color)
-    color = color or "rose-pine"
+    color = color or "nordic"
     vim.cmd("colorscheme " .. color)
 
     vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
@@ -24,6 +24,16 @@ return {
             },
         })
     end
+    },
+
+    {
+        "AlexvZyl/nordic.nvim",
+        name = "nordic",
+        config = function ()
+            require("nordic").setup({
+
+            })
+        end
     },
 
     {
