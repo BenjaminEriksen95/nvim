@@ -17,7 +17,10 @@ return {
         -- Snippets
         "L3MON4D3/LuaSnip",
         -- Utils
-        "j-hui/fidget.nvim"
+        "j-hui/fidget.nvim",
+
+        -- Mason Tool Installer
+        "WhoIsSethDaniel/mason-tool-installer.nvim"
     },
 
     config = function()
@@ -70,6 +73,19 @@ return {
                 end,
             }
         })
+
+        -- Automatic install of tools
+        require("mason-tool-installer").setup({
+           ensure_installed = {
+            'black',
+            'pylint',
+            'debugpy',
+            'flake8',
+            'mypy'
+            }
+        })
+
+        vim.api.nvim_command('MasonToolsInstall')
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
