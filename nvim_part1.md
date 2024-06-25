@@ -49,11 +49,6 @@ Vim uses 4 modes:
 
 # Built-in vim features
 
-## Windows
-`C-w`
-- `C-w + s` - split horizontal.
-- `C-w + v` - split vertical.
-
 ## Stacked bindings
 Using several modes allows reusing key behavior for several purposes
 - Mark inside ( - `vi(`
@@ -64,14 +59,57 @@ Using several modes allows reusing key behavior for several purposes
 Leader key is used as a prefix to access commands.
 `Space`
 
+## Windows
+`C-w`
+- `C-w + s` - split horizontal.
+- `C-w + v` - split vertical.
+
 ## Registers
 `"`
 
-## Macros
-`q`
-
+<!-- ## Macros -->
+<!-- `q` -->
 
 # Install neovim and run :Tutor
 What we will use to practice vim-bindings today.
+
+# Configuration
+For a bit of configuration add:
+
+`~/.config/nvim/init.lua`
+
+The following config is a start to try it out.
+To figure out what each does try `:help [cmd]` e.g. `:help mapleader`
+
+```
+vim.g.mapleader = " "
+
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Explorer'})
+
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = '[Y]ank line OS'})
+
+-- Helpers for Danish keyboard
+vim.keymap.set({"n","v","o"}, "ø", "$", {desc = 'End of Line'})
+vim.keymap.set({"n","v","o"}, "æ", "_", {desc = 'Start of Line(non-blank)'})
+
+vim.opt.cursorline = true
+
+vim.opt.nu = true
+
+vim.opt.relativenumber = true
+
+vim.opt.shiftwidth = 4
+
+vim.opt.smartindent = true
+
+vim.opt.hlsearch = true
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+vim.opt.incsearch = true
+
+vim.opt.termguicolors = true
+
+vim.opt.scrolloff = 8
+```
 
 
