@@ -48,11 +48,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end,
             { buffer = buffer, desc = "Re[n]ame symbol" })
         vim.keymap.set("i", "<C-x>", function() vim.lsp.buf.signature_help() end,
-            { buffer = buffer, desc = "Signature expand" })
+            { buffer = buffer, desc = "e[x]plain signature" })
         vim.keymap.set("n", "<leader>ø", function() vim.diagnostic.goto_next() end,
-            { buffer = buffer, desc = "Next diagnostic" })
+            { buffer = buffer, desc = "next diagnostic" })
         vim.keymap.set("n", "<leader>æ", function() vim.diagnostic.goto_prev() end,
-            { buffer = buffer, desc = "Previous diagnostic" })
+            { buffer = buffer, desc = "previous diagnostic" })
         vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostic [q]uickfix list' })
     end
 })
