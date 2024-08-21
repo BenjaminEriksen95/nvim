@@ -20,7 +20,6 @@ vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = '[Y]ank line OS'})
 -- Delete without yank - conflicts with
 --vim.keymap.set({"n", "v"}, "<leader>d"
 
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = '[f]ormat'})
 
 -- Helpers for Danish keyboard
