@@ -42,7 +42,11 @@ return {
 
         vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
 
-        vim.keymap.set('n', '<leader>sF', builtin.find_files, { desc = '[S]earch All [F]iles' })
+        vim.keymap.set('n', '<leader>sF', function()
+          builtin.find_files({
+            hidden = true
+          })
+        end, { desc = '[s]earch All [F]iles)' })
 
         vim.keymap.set('n', '<leader>ht', builtin.builtin, { desc = '[H]elp [T]elescope' })
 
