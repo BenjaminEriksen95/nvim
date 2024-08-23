@@ -16,6 +16,7 @@
   "minimap.vim": { "branch": "master", "commit": "395378137e6180762d5b963ca9ad5ac2db5d3283" },
   "nordic": { "branch": "main", "commit": "03fcff3c8d68049b8118047784746048b4a08049" },
   "nvim-cmp": { "branch": "main", "commit": "97dc716fc914c46577a4f254035ebef1aa72558a" },
+  "nvim-colorizer.lua": { "branch": "master", "commit": "a065833f35a3a7cc3ef137ac88b5381da2ba302e" },
   "nvim-dap": { "branch": "master", "commit": "405df1dcc2e395ab5173a9c3d00e03942c023074" },
   "nvim-dap-python": { "branch": "master", "commit": "3dffa58541d1f52c121fe58ced046268c838d802" },
   "nvim-dap-ui": { "branch": "master", "commit": "edfa93f60b189e5952c016eee262d0685d838450" },
