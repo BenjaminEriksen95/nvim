@@ -26,7 +26,7 @@ return {
         vim.keymap.set("n", "<leader>Rb", ":Refactor extract_block", { desc = '[R]efactor extract [b]lock' })
 
         -- Extract the block of code under the cursor into a new file
-        vim.keymap.set("n", "<leader>Rbf", ":Refactor extract_block_to_file", { desc = '[R]efactor extract block to [f]ile' })
+        -- vim.keymap.set("n", "<leader>Rbf", ":Refactor extract_block_to_file", { desc = '[R]efactor extract block to [f]ile' })
 
         -- Open a menu to select a refactoring operation
         vim.keymap.set({"n", "x"}, "<leader>Rr", function() require('refactoring').select_refactor() end, { desc = '[R]efactor select' })
