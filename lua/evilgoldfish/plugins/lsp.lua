@@ -2,13 +2,9 @@ return {
     "neovim/nvim-lspconfig",
 
     dependencies = {
-
         -- Mason
         "williamboman/mason.nvim",
-        "williamboman/mason.lspconfig.nvim",
-
-        -- LSP Support
-        "neovim/nvim-lspconfig",
+        "williamboman/mason-lspconfig.nvim",
 
         -- Autocompletion
         "hrsh7th/cmp-nvim-lsp",
@@ -16,42 +12,43 @@ return {
 
         -- Snippets
         "L3MON4D3/LuaSnip",
+
         -- Utils
         "j-hui/fidget.nvim",
 
         -- Mason Tool Installer
-        "WhoIsSethDaniel/mason-tool-installer.nvim"
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
 
     config = function()
+        -- Setup capabilities for LSP and autocompletion
         local cmp = require("cmp")
-        local cmp_lsp = require("cmp_nvim_lsp")
-        local capabilities = vim.tbl_deep_extend(
-            "force",
-            {},
-            vim.lsp.protocol.make_client_capabilities(),
-            cmp_lsp.default_capabilities())
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
+        -- Setup Fidget for LSP progress notifications
         require("fidget").setup({})
+
+        -- Mason setup
         require("mason").setup({})
         require("mason-lspconfig").setup({
             ensure_installed = {
+                -- LSP servers to be installed
                 "lua_ls",
-                -- Python
                 "pyright",
-
+                "gopls",
             },
             handlers = {
+                -- Default handler for all servers
                 function(server_name)
                     require("lspconfig")[server_name].setup {
-                        capabilities = capabilities
+                        capabilities = capabilities,
                     }
                 end,
 
-                -- Specific configuration for Lua
+                -- Lua-specific configuration
                 ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
+                    require("lspconfig").lua_ls.setup {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
@@ -63,58 +60,93 @@ return {
                     }
                 end,
 
-                -- Add specific configurations for Pyright if needed
+                -- Pyright-specific configuration
                 ["pyright"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.pyright.setup {
+                    require("lspconfig").pyright.setup {
                         capabilities = capabilities,
-                        -- Add any Pyright-specific settings here
                     }
                 end,
+
+                -- -- gopls-specific configuration
+                -- ["gopls"] = function()
+                --     require("lspconfig").gopls.setup {
+                --         capabilities = capabilities,
+                --         settings = {
+                --             gopls = {
+                --                 analyses = {
+                --                     unusedparams = true,
+                --                 },
+                --                 staticcheck = true,
+                --             }
+                --         }
+                --     }
+                -- end,
             }
         })
 
-        -- Automatic install of tools
+        -- Mason Tool Installer setup
         require("mason-tool-installer").setup({
-           ensure_installed = {
-            'black',
-            'pylint',
-            'debugpy',
-            'flake8',
-            'mypy'
-            }
+            ensure_installed = {
+                -- Tools to be automatically installed (formatters, linters, debuggers, etc.)
+                "black",      -- Python formatter
+                "pylint",     -- Python linter
+                "flake8",     -- Python linter
+                "debugpy",    -- Python debugger
+                "mypy",       -- Python type checker
+                "gofumpt",    -- Go formatter
+            },
         })
 
-        vim.api.nvim_command('MasonToolsInstall')
 
-        local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
-
+        -- Use deprecated unpack for old versions if new isn't available.
+        local unpack = table.unpack or unpack
+        -- Helper function to check if there are words before cursor
+        local has_words_before = function()
+            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+            return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+        end
+        -- Autocompletion setup
         cmp.setup({
             snippet = {
                 expand = function(args)
-                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                    require("luasnip").lsp_expand(args.body)
                 end,
             },
             mapping = cmp.mapping.preset.insert({
-                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<CR>'] = cmp.mapping.confirm({ select = false }),
                 ['<C-Space>'] = cmp.mapping.complete(),
-                ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+                -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                -- Inserted Tab and Shift-Tab behavior for navigating suggestions
+                ['<Tab>'] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    elseif has_words_before() then
+                        cmp.complete()
+                    else
+                        fallback()
+                    end
+                end, { 'i', 's' }),
+                ['<S-Tab>'] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                    else
+                        fallback()
+                    end
+                end, { 'i', 's' }),
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
-                { name = 'luasnip' }, -- For luasnip users.
+                { name = 'luasnip' },
             }, {
-                    { name = 'buffer' },
-                })
+                { name = 'buffer' },
+            })
         })
 
+
+
+        -- Configure diagnostic display
         vim.diagnostic.config({
-            -- update_in_insert = true,
             float = {
                 focusable = false,
                 style = "minimal",
@@ -124,7 +156,6 @@ return {
                 prefix = "",
             },
         })
-
     end
 }
 
