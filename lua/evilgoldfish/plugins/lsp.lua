@@ -37,6 +37,8 @@ return {
                 "lua_ls",
                 "pyright",
                 "gopls",
+                "rust_analyzer",
+                "jdtls"
             },
             handlers = {
                 -- Default handler for all servers
@@ -67,7 +69,16 @@ return {
                     }
                 end,
 
-                -- -- gopls-specific configuration
+               ["rust_analyzer"] = function()
+                    local rt = require("rust-tools")
+
+                    rt.setup({
+                        server = {
+                            capabilities = capabilities,
+                            -- No custom on_attach, global mappings will apply
+                        },
+                    })
+                end, -- -- gopls-specific configuration
                 -- ["gopls"] = function()
                 --     require("lspconfig").gopls.setup {
                 --         capabilities = capabilities,
@@ -147,13 +158,15 @@ return {
 
         -- Configure diagnostic display
         vim.diagnostic.config({
+            virtual_text = false,
+            signs = true,
             float = {
-                focusable = false,
-                style = "minimal",
-                border = "rounded",
-                source = "always",
-                header = "",
-                prefix = "",
+                -- focusable = false,
+                -- style = "minimal",
+                -- border = "rounded",
+                -- source = "always",
+                -- header = "",
+                -- prefix = "",
             },
         })
     end
