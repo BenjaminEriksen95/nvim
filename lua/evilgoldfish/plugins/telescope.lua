@@ -19,14 +19,18 @@ return {
         },
         { 'nvim-telescope/telescope-ui-select.nvim' }
     },
-
     config = function()
         require('telescope').setup({
+            defaults = {
+                selection_caret = "➜ ",
+                sorting_strategy = "ascending",
+                layout_strategy = "horizontal",
+            },
             extensions = {
                 ['ui-select'] = {
                     require('telescope.themes').get_dropdown(),
                 },
-            }
+            },
         })
 
         pcall(require('telescope').load_extension, 'fzf')
@@ -34,7 +38,7 @@ return {
 
         local builtin = require('telescope.builtin')
         vim.keymap.set("n", "<leader>rr", function() builtin.lsp_references() end,
-            {  desc = "[R]efe[r]ences" })
+            {  desc = "[r]efe[r]ences" })
 
         vim.keymap.set('n', '<leader>sq', builtin.quickfix, { desc = '[q]uickfix'} )
 

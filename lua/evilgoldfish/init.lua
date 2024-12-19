@@ -38,6 +38,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     group = my_group,
     callback = function(e)
         local buffer = e.buf
+        local telescope = require('telescope.builtin')
+        vim.keymap.set("n", "<leader>rr", telescope.lsp_references, { buffer = buffer, desc = "[r]efe[r]ences" })
         vim.keymap.set("n", "<leader>gd", function() vim.lsp.buf.definition() end,
             { buffer = buffer, desc = "[g]o to [d]efinition" })
         vim.keymap.set("n", "<leader>gD", function()
@@ -52,12 +54,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
             { buffer = buffer, desc = "[d]iagnostics [f]loat" })
         vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end,
             { buffer = buffer, silent = true, noremap = true, desc = "[c]ode [a]ctions" })
-        --vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end,
-        --    { buffer = buffer, desc = "[R]efe[r]ences" })
         vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end,
-            { buffer = buffer, desc = "Re[n]ame symbol" })
+            { buffer = buffer, desc = "[r]e[n]ame symbol" })
         vim.keymap.set("i", "<C-x>", function() vim.lsp.buf.signature_help() end,
             { buffer = buffer, desc = "e[x]plain signature" })
+        -- Leverage danish keys for navigation
         vim.keymap.set("n", "<leader>ø", function() vim.diagnostic.goto_next() end,
             { buffer = buffer, desc = "next diagnostic" })
         vim.keymap.set("n", "<leader>æ", function() vim.diagnostic.goto_prev() end,
