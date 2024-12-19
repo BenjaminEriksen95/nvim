@@ -4,6 +4,8 @@ return {
     opts = {},
 
     config = function()
-        require("hardtime").setup({})
+        require("hardtime").setup({
+            disable_mouse = false
+        })
     end
 }
